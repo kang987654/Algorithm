@@ -5,8 +5,7 @@ for tc in range(1, T+1):
 
     # 파스칼의 삼각형 만들기
     arr = [[0]*N for _ in range(N)]
-    arr[0][0] = 1
-    for i in range(1, N):
+    for i in range(N):
         arr[i][0] = 1
         for j in range(1, i+1):
             arr[i][j] = arr[i-1][j-1] + arr[i-1][j]
