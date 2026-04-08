@@ -1,26 +1,25 @@
 from itertools import combinations
 
+def get_synergy(dish):
+    synergy = 0
+
+    for i in range(N//2):
+        for j in range(N//2):
+            synergy += S[dish[i]][dish[j]]
+    
+    return synergy
+
+
 T = int(input())
-
-
-def synergy(lst):
-    syn = 0
-    for i in range(len(lst)-1):
-        for j in range(i+1, len(lst)):
-            syn += S[lst[i]][lst[j]] + S[lst[j]][lst[i]]
-    return syn
-
 
 for tc in range(1, T+1):
     N = int(input())
     S = [list(map(int, input().split())) for _ in range(N)]
+    
+    origin = list(range(N))
+    diff_syn = []
+    for dish1 in combinations(origin, N//2):
+        dish2 = list(set(origin) - set(dish1))
+        diff_syn.append(abs(get_synergy(dish1) - get_synergy(dish2)))
 
-    whole = list(range(N))
-    min_diff = float('inf')
-    for c in combinations(whole, N//2):
-        p1 = list(c)
-        p2 = list(set(whole) - set(c))
-
-        min_diff = min(abs(synergy(p1) - synergy(p2)), min_diff)
-
-    print(f'#{tc} {min_diff}')
+    print(f'#{tc} {min(diff_syn)}' )
